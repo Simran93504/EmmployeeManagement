@@ -1,0 +1,56 @@
+{% extends "employee_app/base.html" %}
+
+{% block content %}
+<table class="table table-borderless">
+    <thead class="border-bottom font-weight-bold ">
+        <tr>
+            {% comment %} <td>Employee ID</td> {% endcomment %}
+            <td>First Name</td>
+            <td>Last Name</td>
+            <td>Email</td>
+            <td> Phone</td>
+             <td>Address</td>
+           {% comment %} <td>Employee Salary</td>{% endcomment %}
+            <td>Role</td> 
+            {% comment %} <td>Employee Department</td>
+            <td>Employee Joining Date</td>
+            <td>Employee Status</td>
+            <td>Employee Action</td> {% endcomment %}
+            <td>
+                <a href="{% url 'employee_insert' %}" class="btn btn-outline-success">
+                    <i class="fas fa-plus fa-lg"></i>Add New
+                </a>
+
+            </td>
+        </tr>
+    </thead>
+    <tbody>
+        {% for employee in employee_list %}
+        <tr>
+            {% comment %} <td>{{ employee.employee_id }}</td> {% endcomment %}
+            <td>{{ employee.firstname}}</td>
+            <td>{{ employee.lastname }}</td>
+            <td>{{ employee.email }}</td>
+            <td>{{ employee.mobile }}</td>
+            <td>{{ employee.address }}</td>
+           {% comment %}  <td>{{ employee.employee_salary }}</td> {% endcomment %}
+            <td>{{ employee.position }}</td>
+            {% comment %} <td>{{ employee.employee_department }}</td>
+            <td>{{ employee.employee_joining_date }}</td>
+            <td>{{ employee.employee_status }}</td> {% endcomment %}
+             <td>
+                <a href="{% url 'employee_update' employee.id %}" class="btn text-secondary px-0">
+                    <i class="far fa-edit fa-lg"></i>
+                </a>
+                <form action="{% url 'employee_delete' employee.id %}" method="post" class="d-inline">
+                    {% csrf_token %}
+                    <button type="submit" class="btn ">
+                         <i class="far fa-trash-alt fa-lg text-danger float-right"></i>
+                    </button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock content %}
